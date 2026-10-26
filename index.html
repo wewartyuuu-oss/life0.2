@@ -1,287 +1,194 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#101323">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#100d20">
 <title>LifePath TH</title>
 <style>
+:root{--bg:#100d20;--panel:#1c1730;--panel2:#28203e;--purple:#a184ff;--text:#f5f0ff;--muted:#a69bbd;--line:#352a4e;--green:#54d6a0}
 *{box-sizing:border-box}
-body{margin:0;background:#101323;color:#f5f5ff;font:15px system-ui,sans-serif}
-main{max-width:950px;margin:auto;padding:16px}
-h1{font-size:32px;margin:3px 0}h2{font-size:19px;margin:0 0 12px}
-p,.muted,small{color:#aeb5d2}
-.brand{color:#b9a3ff;font-weight:900;letter-spacing:2px;font-size:12px}
-.panel{background:#1b2036;border:1px solid #353d5d;border-radius:17px;padding:15px;margin:13px 0}
-.hero{display:flex;align-items:center;gap:14px}
-.avatar{font-size:45px;background:#343052;border-radius:17px;padding:12px}
-.stats,.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.stat{background:#111629;border-radius:11px;padding:10px}
-.stat small{display:block}.stat b{font-size:18px}
-.bar{height:5px;background:#353b54;border-radius:8px;margin-top:5px;overflow:hidden}
-.bar i{display:block;height:100%;background:#b9a3ff}
-button{background:#282f4a;color:white;border:1px solid #454e70;border-radius:11px;padding:11px 8px;font:inherit;font-weight:bold;cursor:pointer}
-button.primary{background:#b9a3ff;color:#18132b}
-button.danger{border-color:#914c61}
-button:active{transform:scale(.98)}
-.tabs{display:flex;gap:7px;overflow:auto;margin-bottom:12px}
-.tabs button{white-space:nowrap}
-.feed{display:flex;flex-direction:column;gap:8px;max-height:350px;overflow:auto}
-.feeditem{background:#111629;border-left:3px solid #9280df;border-radius:5px 10px 10px 5px;padding:10px;line-height:1.5}
-.feeditem small{display:block;font-size:11px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:8px}
-.pill{background:#30304e;border-radius:20px;padding:4px 8px;font-size:12px}
-.person,.asset{padding:10px 0;border-bottom:1px solid #353d5d}
-.person:last-child,.asset:last-child{border:0}
-.achievement{padding:8px;background:#252b45;border-radius:9px;margin:5px 0}
-.hidden{display:none!important}
-.modal{position:fixed;inset:0;background:#000b;display:grid;place-items:center;padding:18px;z-index:5}
-.modalbox{background:#1b2036;border:1px solid #454e70;border-radius:18px;padding:20px;max-width:440px;width:100%}
-.field{width:100%;background:#111629;color:white;border:1px solid #454e70;border-radius:10px;padding:12px;margin:6px 0 12px}
-.modalbox button{width:100%;margin-top:8px}
-@media(min-width:680px){.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:13px}.stats{grid-template-columns:repeat(3,1fr)}.actions{grid-template-columns:repeat(3,1fr)}}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;padding-bottom:85px}
+button,input,select{font:inherit}
+button{cursor:pointer}
+header{position:sticky;top:0;z-index:5;padding:16px;background:#171226;border-bottom:1px solid var(--line)}
+.brand{font-size:23px;font-weight:900}.brand span{color:var(--purple)}
+.sub{font-size:12px;color:var(--muted)}
+.cash{float:right;color:var(--green);font-weight:800;margin-top:7px}
+main{max-width:650px;margin:auto;padding:14px}
+.page{display:none}.page.active{display:block}
+.hero{padding:22px;border-radius:20px;background:linear-gradient(130deg,#6544a0,#21183f);border:1px solid #554078}
+.hero small{color:#dfd1ff}.hero h1{font-size:27px;margin:8px 0}.hero p{font-size:13px;color:#ded4f5;margin:0}
+.profile{display:flex;gap:13px;align-items:center;background:var(--panel);border:1px solid var(--line);padding:15px;border-radius:18px;margin-top:13px}
+.avatar{width:64px;height:64px;border-radius:18px;background:#40305e;display:grid;place-items:center;font-size:35px}
+.profile h2{font-size:17px;margin:0 0 4px}.muted{font-size:12px;color:var(--muted)}
+.pill{display:inline-block;background:#35284e;color:#dacbff;padding:4px 9px;border-radius:20px;font-size:11px;margin-top:7px}
+.heading{display:flex;justify-content:space-between;align-items:center;font-weight:800;margin:22px 2px 10px}
+.heading small{font-weight:400;font-size:11px;color:var(--muted)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.stat,.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:13px}
+.stathead{display:flex;justify-content:space-between;font-size:12px}
+.track{height:7px;background:#372d49;border-radius:8px;overflow:hidden;margin-top:9px}
+.fill{height:100%;border-radius:8px;transition:width .2s}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.action{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:15px;padding:14px 12px;text-align:left;min-height:92px}
+.action:active{background:var(--panel2)}
+.emoji{display:block;font-size:24px;margin-bottom:7px}
+.action b{font-size:13px}.action small{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+.card{margin-bottom:11px}.card h3{font-size:15px;margin:0 0 8px}.card p{font-size:12px;color:var(--muted);line-height:1.6}
+.primary,.secondary{width:100%;border:0;border-radius:11px;padding:11px;margin-top:10px;font-weight:700}
+.primary{background:var(--purple);color:#170e2b}
+.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}
+input,select{display:block;width:100%;background:#151126;color:white;border:1px solid var(--line);padding:12px;border-radius:10px;margin:7px 0 12px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.big{font-size:24px;font-weight:900}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:10;display:flex;justify-content:space-around;background:#171226f5;border-top:1px solid var(--line);padding:8px 2px max(8px,env(safe-area-inset-bottom))}
+.nav button{flex:1;border:0;background:none;color:var(--muted);font-size:10px;padding:4px 0}
+.nav button span{display:block;font-size:20px;margin-bottom:3px}
+.nav button.active{color:var(--purple)}
+.log{font-size:12px;line-height:1.7;color:#e0d5f8;background:#241b39;border-radius:12px;padding:12px}
+.toast{display:none;position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#392950;border:1px solid #675087;border-radius:12px;padding:11px 15px;z-index:20;font-size:12px;max-width:90%;width:max-content}
+@media(min-width:520px){.actions{grid-template-columns:repeat(3,1fr)}.stats{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
+<header>
+ <div class="cash" id="cash">฿5,000</div>
+ <div class="brand">LIFE<span>PATH</span> TH</div>
+ <div class="sub">ชีวิตของคุณ เรื่องราวของคุณ</div>
+</header>
 <main>
-<div class="row">
- <div><div class="brand">LIFE SIMULATOR • THAILAND</div><h1>LifePath TH</h1><div class="muted">ทุกการตัดสินใจ เขียนชีวิตของคุณ</div></div>
- <button onclick="settings()">⚙️ ตั้งค่า</button>
-</div>
-
-<section class="panel hero">
- <div class="avatar" id="avatar">👶</div>
- <div><div class="row"><h2 id="name">ผู้เล่น</h2><span class="pill" id="stage">วัยเด็ก</span></div>
- <div class="muted" id="bio">ประเทศไทย • อายุ 0 ปี</div><p id="summary">เรื่องราวของคุณกำลังเริ่มต้น</p></div>
-</section>
-
-<div class="layout"><div>
-<section class="panel"><div class="row"><h2>📊 สถานะชีวิต</h2><span id="year" class="muted"></span></div><div class="stats" id="stats"></div></section>
-<section class="panel"><h2>🎯 กิจกรรมชีวิต</h2>
- <div class="tabs" id="tabs">
-  <button class="primary" onclick="tab('life')">🌱 ชีวิต</button>
-  <button onclick="tab('career')">🎓 เรียน/งาน</button>
-  <button onclick="tab('social')">❤️ สังคม</button>
-  <button onclick="tab('money')">💰 เงิน</button>
-  <button onclick="tab('assets')">🏠 ทรัพย์สิน</button>
+<section class="page active" id="home">
+ <div class="hero"><small>YOUR STORY STARTS HERE</small><h1>ทุกการเลือก<br>เปลี่ยนชีวิตได้</h1><p>สร้างเส้นทางชีวิตในแบบของคุณเอง</p></div>
+ <div class="profile">
+  <div class="avatar" id="avatar">🧑🏻</div>
+  <div style="flex:1"><h2 id="name">ผู้เล่นใหม่</h2><div class="muted"><span id="age">18</span> ปี · <span id="job">ยังไม่มีอาชีพ</span></div><span class="pill" id="stage">วัยผู้ใหญ่ตอนต้น</span></div>
+  <button class="secondary" style="width:auto;margin:0" onclick="go('character')">แก้ไข</button>
  </div>
- <div class="actions" id="actions"></div>
+ <div class="heading">สถานะชีวิต <small>อัปเดตทันที</small></div>
+ <div class="stats" id="stats"></div>
+ <div class="heading">กิจกรรมแนะนำ</div>
+ <div class="actions">
+  <button class="action" onclick="act('work')"><span class="emoji">💼</span><b>ทำงาน</b><small>รับรายได้</small></button>
+  <button class="action" onclick="act('study')"><span class="emoji">📚</span><b>เรียนรู้</b><small>เพิ่มความรู้</small></button>
+  <button class="action" onclick="act('exercise')"><span class="emoji">🏃</span><b>ออกกำลังกาย</b><small>เพิ่มสุขภาพ</small></button>
+  <button class="action" onclick="act('relax')"><span class="emoji">🎮</span><b>พักผ่อน</b><small>เพิ่มความสุข</small></button>
+  <button class="action" onclick="act('social')"><span class="emoji">🫂</span><b>พบปะเพื่อน</b><small>เพิ่มสังคม</small></button>
+  <button class="action" onclick="act('hobby')"><span class="emoji">🎨</span><b>งานอดิเรก</b><small>ใช้เงิน ฿200</small></button>
+ </div>
+ <div class="heading">บันทึกชีวิต</div><div class="log" id="log">✨ ยินดีต้อนรับสู่ชีวิตบทใหม่</div>
+ <button class="primary" onclick="nextYear()">🎂 อายุเพิ่ม 1 ปี</button>
 </section>
-<section class="panel"><h2>📖 บันทึกชีวิต</h2><div class="feed" id="feed"></div></section>
-</div><div>
-<section class="panel"><h2>👨‍👩‍👧 ครอบครัวและความสัมพันธ์</h2><div id="people"></div></section>
-<section class="panel"><div class="row"><h2>🏆 ความสำเร็จ</h2><span class="pill" id="achCount"></span></div><div id="achievements"></div></section>
-<section class="panel"><h2>🎂 ก้าวสู่ปีถัดไป</h2><p>เติบโต รับเหตุการณ์ใหม่ และดูว่าการเลือกของคุณเปลี่ยนชีวิตอย่างไร</p>
- <button class="primary" style="width:100%" onclick="ageUp()">🎂 ใช้ชีวิตต่ออีก 1 ปี</button>
- <button class="danger" style="width:100%;margin-top:8px" onclick="resetGame()">🔄 เริ่มชีวิตใหม่</button>
-</section>
-</div></div>
-<p style="text-align:center;font-size:11px">LifePath TH • เกมจำลองเพื่อความบันเทิง • บันทึกบนอุปกรณ์นี้</p>
-</main>
-<div class="modal hidden" id="modal"></div>
-<script>
-const $=id=>document.getElementById(id);
-const clamp=n=>Math.max(0,Math.min(100,Math.round(n)));
-const fresh=()=>({
- name:"ผู้เล่น",age:0,country:"ประเทศไทย",gender:"ไม่ระบุ",
- health:85,happy:75,intel:50,looks:50,fitness:50,rep:10,
- cash:1000,debt:0,edu:0,job:"ยังไม่ได้ทำงาน",experience:0,
- careerLevel:0,degree:"ยังไม่จบการศึกษา",
- partner:"",relationship:0,married:false,children:0,friends:1,
- house:"ไม่มี",car:"ไม่มี",business:"ไม่มี",alive:true,
- history:[],achievements:[],
- family:[{name:"แม่",type:"แม่",relation:85,alive:true},
- {name:"พ่อ",type:"พ่อ",relation:80,alive:true}]
-});
-let s;
-try{s={...fresh(),...JSON.parse(localStorage.getItem("lifepath-save-v2")||"{}")}}
-catch(e){s=fresh()}
-let currentTab="life";
 
-function save(){
- try{localStorage.setItem("lifepath-save-v2",JSON.stringify(s))}catch(e){}
-}
-function log(msg){
- s.history.unshift({age:s.age,msg});
- s.history=s.history.slice(0,100);
- save();renderFeed();
-}
-function stat(label,value,emoji){
- let n=typeof value==="number";
- return `<div class="stat"><small>${emoji} ${label}</small><b>${value}</b>
- ${n?`<div class="bar"><i style="width:${clamp(value)}%"></i></div>`:""}</div>`;
-}
+<section class="page" id="character">
+ <div class="heading">👤 ตัวละคร</div>
+ <div class="card"><h3>ข้อมูลส่วนตัว</h3><label class="muted">ชื่อของคุณ</label><input id="nameInput" maxlength="28" placeholder="ตั้งชื่อตัวละคร"><label class="muted">ตัวละคร</label><select id="avatarInput"><option>🧑🏻</option><option>👩🏻</option><option>🧑🏽</option><option>🧑🏿</option><option>🧙</option></select><button class="primary" onclick="saveCharacter()">บันทึก</button></div>
+ <div class="card"><h3>ข้อมูลชีวิต</h3><div class="row"><span class="muted">อายุ</span><b id="cAge"></b></div><hr><div class="row"><span class="muted">อาชีพ</span><b id="cJob"></b></div><hr><div class="row"><span class="muted">เงิน</span><b id="cCash"></b></div></div>
+</section>
+
+<section class="page" id="activities">
+ <div class="heading">⚡ กิจกรรม</div>
+ <div class="actions">
+  <button class="action" onclick="act('work')"><span class="emoji">💼</span><b>ทำงาน</b><small>หาเงิน</small></button>
+  <button class="action" onclick="act('study')"><span class="emoji">📚</span><b>อ่านหนังสือ</b><small>เพิ่มความรู้</small></button>
+  <button class="action" onclick="act('exercise')"><span class="emoji">🏃</span><b>ออกกำลังกาย</b><small>เพิ่มสุขภาพ</small></button>
+  <button class="action" onclick="act('relax')"><span class="emoji">🎮</span><b>เล่นเกม</b><small>เพิ่มความสุข</small></button>
+  <button class="action" onclick="act('social')"><span class="emoji">🫂</span><b>พบปะเพื่อน</b><small>เพิ่มสังคม</small></button>
+  <button class="action" onclick="act('hobby')"><span class="emoji">🎨</span><b>งานอดิเรก</b><small>ใช้เงิน ฿200</small></button>
+ </div><button class="primary" onclick="nextYear()">🎂 ขึ้นปีถัดไป</button>
+</section>
+
+<section class="page" id="relationships">
+ <div class="heading">💜 ความสัมพันธ์</div>
+ <div class="card"><h3>👨‍👩‍👧 ครอบครัว</h3><div class="row"><span class="muted">ความสัมพันธ์</span><b id="familyN"></b></div><div class="track"><div class="fill" id="familyB" style="background:#b89aff"></div></div><button class="primary" onclick="relation('family')">ใช้เวลากับครอบครัว</button></div>
+ <div class="card"><h3>🧑‍🤝‍🧑 เพื่อน</h3><div class="row"><span class="muted">ความสัมพันธ์</span><b id="friendsN"></b></div><div class="track"><div class="fill" id="friendsB" style="background:#68b8ff"></div></div><button class="primary" onclick="relation('friends')">ไปพบเพื่อน</button></div>
+</section>
+
+<section class="page" id="career">
+ <div class="heading">💼 อาชีพและการศึกษา</div>
+ <div class="card"><h3>อาชีพปัจจุบัน</h3><div class="big" id="careerJob"></div><p>ทำงานเพื่อรับรายได้และพัฒนาชีวิต</p></div>
+ <div class="card"><h3>🧰 พนักงานพาร์ตไทม์</h3><p>รายได้ ฿800 ต่อครั้ง</p><button class="primary" onclick="getJob('พนักงานพาร์ตไทม์')">สมัครงาน</button></div>
+ <div class="card"><h3>💻 นักพัฒนาโปรแกรม</h3><p>ต้องมีความรู้ 40 ขึ้นไป · รายได้ ฿2,500 ต่อครั้ง</p><button class="primary" onclick="getJob('นักพัฒนาโปรแกรม')">สมัครงาน</button></div>
+ <div class="card"><h3>📚 เพิ่มความรู้</h3><button class="primary" onclick="act('study')">เริ่มเรียน</button></div>
+</section>
+
+<section class="page" id="finance">
+ <div class="heading">💰 การเงิน</div>
+ <div class="card"><p>เงินสดของคุณ</p><div class="big" id="financeCash"></div><p>บริหารเงินและวางแผนเก็บออม</p></div>
+ <div class="card"><h3>🏦 เงินออม</h3><div class="big" id="savings"></div><button class="primary" onclick="saveMoney()">ออมเงิน ฿500</button><button class="secondary" onclick="withdraw()">ถอนเงิน ฿500</button></div>
+</section>
+
+<section class="page" id="assets">
+ <div class="heading">🏠 ทรัพย์สิน</div>
+ <div class="card"><h3>🚲 จักรยาน</h3><p>ราคา ฿2,000</p><button class="primary" onclick="buy('จักรยาน',2000)">ซื้อจักรยาน</button></div>
+ <div class="card"><h3>🏡 ห้องชุดเริ่มต้น</h3><p>ราคา ฿50,000</p><button class="primary" onclick="buy('ห้องชุดเริ่มต้น',50000)">ซื้อห้องชุด</button></div>
+ <div class="heading">ทรัพย์สินที่มี</div><div class="card" id="assetList">ยังไม่มีทรัพย์สิน</div>
+</section>
+
+<section class="page" id="achievements">
+ <div class="heading">🏆 ความสำเร็จ</div>
+ <div class="card"><h3 id="ach1">🔒 ก้าวแรก</h3><p>ทำกิจกรรมอย่างน้อยหนึ่งครั้ง</p></div>
+ <div class="card"><h3 id="ach2">🔒 นักเก็บออม</h3><p>มีเงินออมสะสม ฿5,000</p></div>
+ <div class="card"><h3 id="ach3">🔒 เติบโตขึ้น</h3><p>มีอายุ 25 ปี</p></div>
+</section>
+
+<section class="page" id="settings">
+ <div class="heading">⚙️ ตั้งค่า</div>
+ <div class="card"><h3>ข้อมูลเกม</h3><p>ข้อมูลบันทึกในเบราว์เซอร์เครื่องนี้โดยอัตโนมัติ</p><button class="primary" onclick="exportSave()">ส่งออกข้อมูลเซฟ</button><button class="secondary" onclick="resetGame()">เริ่มชีวิตใหม่</button></div>
+</section>
+</main>
+
+<nav class="nav">
+ <button class="active" data-page="home" onclick="go('home',this)"><span>🏠</span>หน้าหลัก</button>
+ <button data-page="activities" onclick="go('activities',this)"><span>⚡</span>กิจกรรม</button>
+ <button data-page="relationships" onclick="go('relationships',this)"><span>💜</span>สังคม</button>
+ <button data-page="career" onclick="go('career',this)"><span>💼</span>อาชีพ</button>
+ <button data-page="finance" onclick="go('finance',this)"><span>💰</span>การเงิน</button>
+ <button data-page="assets" onclick="go('assets',this)"><span>🏠</span>ทรัพย์สิน</button>
+</nav>
+<div class="toast" id="toast"></div>
+
+<script>
+const initial=()=>({name:"ผู้เล่นใหม่",avatar:"🧑🏻",age:18,money:5000,savings:0,health:80,happiness:75,intelligence:50,social:45,job:"ยังไม่มีอาชีพ",family:60,friends:35,actions:0,assets:[],log:"✨ ยินดีต้อนรับสู่ชีวิตบทใหม่"});
+let s;
+try{s={...initial(),...JSON.parse(localStorage.getItem("lifePathTHSave")||"{}")}}catch(e){s=initial()}
+const clamp=n=>Math.max(0,Math.min(100,n));
+const cash=n=>"฿"+Number(n).toLocaleString("th-TH");
+function toast(t){const e=document.getElementById("toast");e.textContent=t;e.style.display="block";setTimeout(()=>e.style.display="none",2200)}
+function persist(){try{localStorage.setItem("lifePathTHSave",JSON.stringify(s))}catch(e){}render()}
+function go(id,btn){document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));window.scrollTo(0,0)}
 function render(){
- $("name").textContent=s.name;
- $("avatar").textContent=s.age<3?"👶":s.age<13?"🧒":s.age<20?"🧑‍🎓":s.age<60?"🧑":"👴";
- $("stage").textContent=s.age<13?"วัยเด็ก":s.age<20?"วัยรุ่น":s.age<60?"วัยผู้ใหญ่":"วัยสูงอายุ";
- $("bio").textContent=s.country+" • อายุ "+s.age+" ปี";
- $("year").textContent="ปีที่ "+(s.age+1);
- $("summary").textContent=!s.alive?"ชีวิตนี้สิ้นสุดแล้ว":s.age<6?"คุณกำลังเรียนรู้โลก":s.age<18?"ช่วงวัยเรียนกำลังสร้างอนาคต":`อาชีพ: ${s.job} • ประสบการณ์ ${s.experience} ปี`;
- $("stats").innerHTML=
- stat("สุขภาพ",s.health,"❤️")+stat("ความสุข",s.happy,"😊")+
- stat("สติปัญญา",s.intel,"🧠")+stat("รูปลักษณ์",s.looks,"✨")+
- stat("ความฟิต",s.fitness,"🏃")+stat("ชื่อเสียง",s.rep,"⭐")+
- stat("เงิน","฿"+s.cash.toLocaleString("th-TH"),"💰")+
- stat("หนี้","฿"+s.debt.toLocaleString("th-TH"),"💳")+
- stat("การศึกษา",s.edu+"/10","🎓");
- renderPeople();renderAchievements();renderFeed();drawActions();save();
+ const el=id=>document.getElementById(id);
+ el("cash").textContent=cash(s.money);el("name").textContent=s.name;el("avatar").textContent=s.avatar;el("age").textContent=s.age;el("job").textContent=s.job;
+ el("stage").textContent=s.age<13?"วัยเด็ก":s.age<20?"วัยรุ่น":s.age<40?"วัยผู้ใหญ่ตอนต้น":s.age<60?"วัยผู้ใหญ่":"วัยสูงอายุ";
+ el("cAge").textContent=s.age+" ปี";el("cJob").textContent=s.job;el("cCash").textContent=cash(s.money);el("careerJob").textContent=s.job;el("financeCash").textContent=cash(s.money);el("savings").textContent=cash(s.savings);el("log").textContent=s.log;
+ el("familyN").textContent=s.family+"%";el("familyB").style.width=s.family+"%";el("friendsN").textContent=s.friends+"%";el("friendsB").style.width=s.friends+"%";
+ const defs=[["❤️","สุขภาพ","health","#ff7187"],["😊","ความสุข","happiness","#f7c76a"],["🧠","ความรู้","intelligence","#a184ff"],["🤝","สังคม","social","#54d6a0"]];
+ el("stats").innerHTML=defs.map(([emoji,label,key,color])=>`<div class="stat"><div class="stathead"><span>${emoji} ${label}</span><span>${s[key]}%</span></div><div class="track"><div class="fill" style="width:${s[key]}%;background:${color}"></div></div></div>`).join("");
+ el("assetList").innerHTML=s.assets.length?s.assets.map(a=>"<p>✓ "+a+"</p>").join(""):"ยังไม่มีทรัพย์สิน";
+ el("ach1").textContent=s.actions?"🏆 ก้าวแรก":"🔒 ก้าวแรก";el("ach2").textContent=s.savings>=5000?"🏆 นักเก็บออม":"🔒 นักเก็บออม";el("ach3").textContent=s.age>=25?"🏆 เติบโตขึ้น":"🔒 เติบโตขึ้น";
 }
-function renderFeed(){
- $("feed").innerHTML=s.history.length?s.history.slice(0,25).map(x=>
- `<div class="feeditem"><small>อายุ ${x.age} ปี</small>${x.msg}</div>`).join(""):
- '<p>เหตุการณ์แรกจะปรากฏที่นี่เมื่อคุณเริ่มใช้ชีวิต</p>';
+function act(type){
+ s.actions++;
+ if(type==="work"){let pay=s.job==="นักพัฒนาโปรแกรม"?2500:s.job==="พนักงานพาร์ตไทม์"?800:300;s.money+=pay;s.log="💼 ทำงานสำเร็จ ได้รับ "+cash(pay)}
+ if(type==="study"){s.intelligence=clamp(s.intelligence+5);s.happiness=clamp(s.happiness-2);s.log="📚 เรียนรู้สำเร็จ ความรู้ +5"}
+ if(type==="exercise"){s.health=clamp(s.health+7);s.happiness=clamp(s.happiness+2);s.log="🏃 สุขภาพดีขึ้น +7"}
+ if(type==="relax"){s.happiness=clamp(s.happiness+8);s.log="🎮 พักผ่อนแล้ว ความสุข +8"}
+ if(type==="social"){s.social=clamp(s.social+6);s.friends=clamp(s.friends+4);s.log="🫂 ได้พบปะผู้คน"}
+ if(type==="hobby"){if(s.money<200){s.actions--;toast("เงินไม่เพียงพอ");return}s.money-=200;s.happiness=clamp(s.happiness+6);s.intelligence=clamp(s.intelligence+2);s.log="🎨 ทำงานอดิเรกสำเร็จ"}
+ persist();toast(s.log)
 }
-function renderPeople(){
- let html=s.family.map(p=>`<div class="person">👤 ${p.name} (${p.type})<br>
- <span class="muted">${p.alive?"ความสัมพันธ์: "+p.relation+"/100":"เสียชีวิต"}</span></div>`).join("");
- if(s.partner)html+=`<div class="person">💞 ${s.partner} ${s.married?"(คู่สมรส)":"(คนรัก)"}<br><span class="muted">ความสัมพันธ์: ${s.relationship}/100</span></div>`;
- html+=`<div class="person">🧒 ลูก: ${s.children} คน</div><div class="person">🫂 เพื่อน: ${s.friends} คน</div>`;
- $("people").innerHTML=html;
-}
-const ACH=[
- ["school","นักเรียนดีเด่น","เรียนครบ 5 ระดับ"],
- ["rich","เศรษฐีคนแรก","มีเงิน 100,000 บาท"],
- ["love","รักครั้งแรก","มีคนรัก"],
- ["family","สร้างครอบครัว","แต่งงานหรือมีลูก"],
- ["career","มืออาชีพ","ทำงานครบ 5 ปี"],
- ["long","อายุยืน","อายุครบ 80 ปี"],
- ["famous","คนดัง","ชื่อเสียง 80 ขึ้นไป"],
- ["home","เจ้าของบ้าน","ซื้อบ้านหลังแรก"]
-];
-function unlock(id){
- if(s.achievements.includes(id))return;
- s.achievements.push(id);
- let a=ACH.find(x=>x[0]===id);
- log("🏆 ปลดล็อกความสำเร็จ: "+a[1]);
-}
-function renderAchievements(){
- $("achCount").textContent=s.achievements.length+"/"+ACH.length;
- $("achievements").innerHTML=ACH.map(a=>
- `<div class="achievement">${s.achievements.includes(a[0])?"🏆":"🔒"} <b>${a[1]}</b><br><small>${a[2]}</small></div>`).join("");
-}
-function tab(t){
- currentTab=t;
- [...$("tabs").children].forEach((b,i)=>b.classList.toggle("primary",
- ["life","career","social","money","assets"][i]===t));
- drawActions();
-}
-function button(label,action){return `<button onclick="act('${action}')">${label}</button>`}
-function drawActions(){
- let a="";
- if(currentTab==="life")a=
- button("📚 อ่านหนังสือ","read")+button("🏃 ออกกำลังกาย","exercise")+
- button("🛌 พักผ่อน","rest")+button("🎮 เล่นเกม","game")+
- button("🎨 งานอดิเรก","hobby")+button("✈️ ท่องเที่ยว ฿2,000","travel");
- if(currentTab==="career")a=
- button("🏫 ตั้งใจเรียน","study")+button("🎓 มหาวิทยาลัย","university")+
- button("💼 หางาน","job")+button("📈 ทำงานล่วงเวลา","overtime")+
- button("🔁 เปลี่ยนอาชีพ","changejob")+button("🧑‍🏫 ฝึกทักษะ","skill");
- if(currentTab==="social")a=
- button("🫂 พบเพื่อน","friend")+button("💌 เริ่มความรัก","date")+
- button("💍 แต่งงาน","marry")+button("🍼 มีลูก","child")+
- button("❤️ ดูแลครอบครัว","family")+button("💔 เลิกรา","breakup");
- if(currentTab==="money")a=
- button("🧰 งานเสริม","sidejob")+button("🏦 ฝากเงิน","save")+
- button("📈 หุ้นจำลอง","invest")+button("🧾 ชำระหนี้","paydebt")+
- button("🏪 เปิดธุรกิจ ฿10,000","business")+button("🎁 ขอความช่วยเหลือ","askmoney");
- if(currentTab==="assets")a=
- button("🏠 ซื้อบ้าน ฿80,000","house")+button("🚗 ซื้อรถ ฿30,000","car")+
- button("🏡 ขายบ้าน","sellhouse")+button("🚙 ขายรถ","sellcar")+
- button("🛍️ ซื้อของ ฿500","shop")+
- `<div class="stat">🏠 บ้าน: ${s.house}<br>🚗 รถ: ${s.car}<br>🏪 ธุรกิจ: ${s.business}</div>`;
- $("actions").innerHTML=a;
-}
-function adult(){if(s.age<15){log("⏳ คุณยังเด็กเกินไป ลองเติบโตอีกหน่อย");return false}return true}
-function act(a){
- if(!s.alive){log("ชีวิตนี้สิ้นสุดแล้ว เริ่มชีวิตใหม่เพื่อเล่นต่อ");return}
- switch(a){
- case"read":s.intel=clamp(s.intel+4);s.happy=clamp(s.happy-1);log("📖 คุณอ่านหนังสือ ความรู้เพิ่มขึ้น");break;
- case"exercise":s.health=clamp(s.health+5);s.fitness=clamp(s.fitness+6);s.happy=clamp(s.happy+1);log("🏃 คุณออกกำลังกาย ร่างกายแข็งแรงขึ้น");break;
- case"rest":s.health=clamp(s.health+7);s.happy=clamp(s.happy+4);log("🛌 คุณพักผ่อนเต็มที่");break;
- case"game":s.happy=clamp(s.happy+7);log("🎮 คุณเล่นเกมเพื่อผ่อนคลาย");break;
- case"hobby":s.happy=clamp(s.happy+5);s.rep=clamp(s.rep+1);log("🎨 คุณฝึกงานอดิเรก");break;
- case"travel":if(s.cash<2000){log("เงินไม่พอเที่ยว");break}s.cash-=2000;s.happy=clamp(s.happy+12);s.rep=clamp(s.rep+2);log("✈️ คุณเดินทางและได้ประสบการณ์ใหม่");break;
- case"study":s.edu=Math.min(10,s.edu+1);s.intel=clamp(s.intel+5);s.happy=clamp(s.happy-2);if(s.edu>=5)unlock("school");log("🏫 คุณตั้งใจเรียน การศึกษาเพิ่มขึ้น");break;
- case"university":if(s.age<18){log("🎓 ต้องอายุ 18 ปีขึ้นไป");break}if(s.cash<5000){log("เงินไม่พอสำหรับค่าใช้จ่ายมหาวิทยาลัย");break}s.cash-=5000;s.edu=Math.min(10,s.edu+2);s.intel=clamp(s.intel+8);s.degree="กำลังศึกษามหาวิทยาลัย";log("🎓 คุณเข้าเรียนมหาวิทยาลัย");break;
- case"job":if(!adult())break;if(s.job!=="ยังไม่ได้ทำงาน"){log("คุณมีงานแล้ว ลองเปลี่ยนอาชีพ");break}if(s.edu>=7){s.job="นักวิเคราะห์";s.cash+=3500}else if(s.edu>=4){s.job="พนักงานสำนักงาน";s.cash+=2200}else{s.job="พนักงานบริการ";s.cash+=1500}s.careerLevel=1;log("💼 คุณได้งานใหม่: "+s.job);break;
- case"overtime":if(!adult())break;if(s.job==="ยังไม่ได้ทำงาน"){log("คุณต้องมีงานก่อน");break}let ot=800+s.careerLevel*250;s.cash+=ot;s.health=clamp(s.health-4);s.experience++;log("📈 ทำงานล่วงเวลา ได้เงิน ฿"+ot);break;
- case"changejob":if(!adult())break;s.job=s.edu>=7?"ผู้เชี่ยวชาญ":s.edu>=4?"พนักงานสำนักงาน":"พนักงานบริการ";s.careerLevel=1;s.happy=clamp(s.happy+3);log("🔁 คุณเริ่มอาชีพใหม่: "+s.job);break;
- case"skill":s.intel=clamp(s.intel+3);s.rep=clamp(s.rep+2);s.cash=Math.max(0,s.cash-200);log("🧑‍🏫 คุณฝึกทักษะใหม่");break;
- case"friend":s.friends++;s.happy=clamp(s.happy+5);s.rep=clamp(s.rep+3);log("🫂 คุณได้รู้จักเพื่อนใหม่");break;
- case"date":if(!adult())break;if(s.partner){log("คุณมีคนรักอยู่แล้ว");break}s.partner="คนรักคนใหม่";s.relationship=60;s.happy=clamp(s.happy+8);unlock("love");log("💌 คุณเริ่มความสัมพันธ์ครั้งใหม่");break;
- case"marry":if(!s.partner){log("ต้องมีคนรักก่อน");break}if(s.relationship<50){log("ความสัมพันธ์ยังไม่แข็งแรงพอ");break}s.married=true;s.relationship=clamp(s.relationship+10);unlock("family");log("💍 คุณแต่งงานแล้ว");break;
- case"child":if(!s.partner){log("สร้างความสัมพันธ์ก่อนวางแผนมีลูก");break}if(s.age<18){log("คุณยังเด็กเกินไป");break}s.children++;s.cash=Math.max(0,s.cash-1000);unlock("family");log("🍼 ครอบครัวมีสมาชิกใหม่");break;
- case"family":s.family.forEach(p=>{if(p.alive)p.relation=clamp(p.relation+8)});if(s.partner)s.relationship=clamp(s.relationship+8);s.happy=clamp(s.happy+5);log("❤️ คุณใช้เวลากับครอบครัว");break;
- case"breakup":if(!s.partner){log("คุณยังไม่มีคนรัก");break}s.partner="";s.relationship=0;s.married=false;s.happy=clamp(s.happy-10);log("💔 ความสัมพันธ์จบลง");break;
- case"sidejob":if(!adult())break;let side=500+Math.floor(Math.random()*1200);s.cash+=side;log("🧰 งานเสริมได้เงิน ฿"+side);break;
- case"save":if(s.cash<100){log("เงินไม่พอ");break}s.cash-=100;s.cash+=115;log("🏦 ได้ผลตอบแทนจำลอง ฿15");break;
- case"invest":if(s.cash<100){log("ต้องมีเงินอย่างน้อย ฿100");break}let bet=Math.min(s.cash,Math.max(100,Math.round(s.cash*.15)));let delta=Math.round(bet*(Math.random()*.6-.2));s.cash+=delta;log((delta>=0?"📈 กำไร ":"📉 ขาดทุน ")+"฿"+Math.abs(delta));break;
- case"paydebt":if(s.debt<=0){log("คุณไม่มีหนี้");break}let paid=Math.min(s.cash,s.debt);s.cash-=paid;s.debt-=paid;log("🧾 คุณชำระหนี้ ฿"+paid);break;
- case"business":if(!adult())break;if(s.business!=="ไม่มี"){log("คุณมีธุรกิจแล้ว");break}if(s.cash<10000){log("ต้องมีเงิน ฿10,000");break}s.cash-=10000;s.business="ร้านค้าขนาดเล็ก";log("🏪 คุณเปิดร้านค้าขนาดเล็ก");break;
- case"askmoney":let gift=500+Math.floor(Math.random()*2500);s.cash+=gift;log("🎁 ครอบครัวช่วยเหลือ ฿"+gift);break;
- case"house":if(!adult())break;if(s.house!=="ไม่มี"){log("คุณมีบ้านแล้ว");break}if(s.cash<80000){log("เงินไม่พอซื้อบ้าน");break}s.cash-=80000;s.house="บ้านหลังแรก";unlock("home");log("🏠 คุณซื้อบ้านหลังแรก");break;
- case"car":if(!adult())break;if(s.car!=="ไม่มี"){log("คุณมีรถแล้ว");break}if(s.cash<30000){log("เงินไม่พอซื้อรถ");break}s.cash-=30000;s.car="รถยนต์มือสอง";log("🚗 คุณซื้อรถยนต์");break;
- case"sellhouse":if(s.house==="ไม่มี"){log("ไม่มีบ้านให้ขาย");break}s.house="ไม่มี";s.cash+=50000;log("🏡 ขายบ้านได้เงิน ฿50,000");break;
- case"sellcar":if(s.car==="ไม่มี"){log("ไม่มีรถให้ขาย");break}s.car="ไม่มี";s.cash+=15000;log("🚙 ขายรถได้เงิน ฿15,000");break;
- case"shop":if(s.cash<500){log("เงินไม่พอซื้อของ");break}s.cash-=500;s.happy=clamp(s.happy+3);log("🛍️ คุณซื้อของใหม่");break;
- }
- checkAchievements();render();
-}
-function checkAchievements(){
- if(s.cash>=100000)unlock("rich");
- if(s.job!=="ยังไม่ได้ทำงาน"&&s.experience>=5)unlock("career");
- if(s.age>=80)unlock("long");
- if(s.rep>=80)unlock("famous");
-}
-function ageUp(){
- if(!s.alive){log("ชีวิตนี้สิ้นสุดแล้ว เริ่มชีวิตใหม่ได้");return}
- s.age++;
- s.health=clamp(s.health-(s.age>60?4:1)+Math.floor(Math.random()*5));
- s.happy=clamp(s.happy+Math.floor(Math.random()*13)-6);
- if(s.job!=="ยังไม่ได้ทำงาน"){s.experience++;s.cash+=1200+s.careerLevel*300;
-  if(s.experience%3===0){s.careerLevel++;s.rep=clamp(s.rep+5);log("📈 คุณมีประสบการณ์เพิ่มขึ้นและได้รับการเลื่อนขั้น")}}
- if(s.business!=="ไม่มี")s.cash+=800;
- s.family.forEach(p=>{if(p.alive&&Math.random()<.025){p.alive=false;log("🕊️ คุณสูญเสียสมาชิกครอบครัว: "+p.name)}});
- if(s.partner)s.relationship=clamp(s.relationship+(Math.random()<.6?3:-5));
- let events=[];
- if(s.age===1)events.push("👶 คุณเริ่มสำรวจโลก");
- if(s.age===6)events.push("🏫 คุณเริ่มเข้าโรงเรียน");
- if(s.age===13)events.push("🧑‍🎓 คุณเข้าสู่วัยรุ่น");
- if(s.age===18){s.degree=s.edu>=5?"จบการศึกษาระดับมัธยม":"การศึกษาระดับมัธยม";events.push("🎉 คุณเข้าสู่วัยผู้ใหญ่ มีโอกาสใหม่รออยู่")}
- if(s.age===60)events.push("🌅 คุณเข้าสู่วัยเกษียณ");
- if(s.age>=80)unlock("long");
- let random=[
- ()=>{s.happy=clamp(s.happy+8);events.push("🌈 มีเรื่องดีๆ เกิดขึ้น คุณมีความสุข")},
- ()=>{s.cash+=1000;events.push("🎁 คุณได้รับเงินพิเศษ ฿1,000")},
- ()=>{s.health=clamp(s.health-8);events.push("🤒 คุณไม่สบาย ต้องดูแลสุขภาพ")},
- ()=>{s.rep=clamp(s.rep+5);events.push("⭐ ผู้คนเริ่มรู้จักคุณมากขึ้น")},
- ()=>{s.intel=clamp(s.intel+3);events.push("💡 คุณได้เรียนรู้บทเรียนสำคัญ")},
- ()=>{s.debt+=500;events.push("🧾 มีค่าใช้จ่ายไม่คาดคิด ฿500")}
- ];
- random[Math.floor(Math.random()*random.length)]();
- if(s.health<=0){s.alive=false;events.push("🕊️ ชีวิตของคุณสิ้นสุดลงแล้ว")}
- if(!events.length)events.push("🎂 คุณเติบโตขึ้นอีกหนึ่งปี มีประสบการณ์ใหม่เกิดขึ้น");
- events.forEach(log);checkAchievements();render();
-}
-function modal(title,body){$("modal").innerHTML=`<div class="modalbox"><h2>${title}</h2>${body}</div>`;$("modal").classList.remove("hidden")}
-function closeModal(){$("modal").classList.add("hidden")}
-function settings(){modal("⚙️ ตั้งค่าเกม",`
- <p>เกมบันทึกข้อมูลไว้ในเบราว์เซอร์นี้โดยอัตโนมัติ</p>
- <button onclick="editName()">✏️ เปลี่ยนชื่อตัวละคร</button>
- <button onclick="exportSave()">📤 ส่งออกเซฟเกม</button>
- <button onclick="importSave()">📥 นำเข้าเซฟเกม</button>
- <button onclick="closeModal()">ปิด</button>`)}
-function editName(){modal("✏️ เปลี่ยนชื่อ",`<input id="newName" class="field" maxlength="30" value="${s.name.replace(/"/g,"&quot;")}"><button class="primary" onclick="saveName()">บันทึก</button><button onclick="closeModal()">ยกเลิก</button>`)}
-function saveName(){let n=$("newName").value.trim();if(n)s.name=n;closeModal();render();log("✏️ ชื่อตัวละครคือ "+s.name)}
-function exportSave(){let blob=new Blob([JSON.stringify(s)],{type:"application/json"});let url=URL.createObjectURL(blob);let a=document.createElement("a");a.href=url;a.download="lifepath-save.json";a.click();URL.revokeObjectURL(url);closeModal()}
-function importSave(){modal("📥 นำเข้าเซฟ",`<p>เลือกไฟล์ lifepath-save.json</p><input type="file" id="saveFile" class="field" accept=".json,application/json"><button class="primary" onclick="loadSave()">นำเข้า</button><button onclick="closeModal()">ยกเลิก</button>`)}
-function loadSave(){let f=$("saveFile").files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{s={...fresh(),...JSON.parse(r.result)};closeModal();render();log("📥 นำเข้าเซฟสำเร็จ")}catch(e){alert("ไฟล์เซฟไม่ถูกต้อง")}};r.readAsText(f)}
-function resetGame(){modal("เริ่มชีวิตใหม่?",`<p>ข้อมูลชีวิตปัจจุบันจะถูกแทนที่ แนะนำให้ส่งออกเซฟก่อน</p><button class="danger" onclick="confirmReset()">เริ่มชีวิตใหม่</button><button onclick="closeModal()">ยกเลิก</button>`)}
-function confirmReset(){s=fresh();closeModal();tab("life");log("✨ ชีวิตใหม่ของคุณเริ่มต้นแล้ว");render()}
-if(!s.history.length)log("✨ คุณเกิดมาในประเทศไทย การผจญภัยเริ่มต้นแล้ว!");
-render();tab("life");
+function nextYear(){s.age++;s.health=clamp(s.health-1);if(s.job==="นักพัฒนาโปรแกรม")s.money+=5000;if(s.job==="พนักงานพาร์ตไทม์")s.money+=1600;s.log="🎂 คุณอายุ "+s.age+" ปีแล้ว";persist();toast(s.log)}
+function saveCharacter(){let n=document.getElementById("nameInput").value.trim();if(n)s.name=n;s.avatar=document.getElementById("avatarInput").value;persist();toast("บันทึกตัวละครแล้ว")}
+function relation(type){if(type==="family"){s.family=clamp(s.family+10);s.happiness=clamp(s.happiness+3);s.log="💜 ใช้เวลากับครอบครัว"}else{s.friends=clamp(s.friends+10);s.social=clamp(s.social+5);s.log="🧑‍🤝‍🧑 มิตรภาพเพิ่มขึ้น"}persist();toast(s.log)}
+function getJob(job){if(job==="นักพัฒนาโปรแกรม"&&s.intelligence<40){toast("ต้องมีความรู้ 40 ขึ้นไป");return}s.job=job;s.log="💼 ได้งานใหม่: "+job;persist();toast(s.log)}
+function saveMoney(){if(s.money<500){toast("เงินไม่เพียงพอ");return}s.money-=500;s.savings+=500;s.log="💰 ออมเงิน ฿500 สำเร็จ";persist()}
+function withdraw(){if(s.savings<500){toast("เงินออมไม่เพียงพอ");return}s.savings-=500;s.money+=500;s.log="💰 ถอนเงิน ฿500 สำเร็จ";persist()}
+function buy(name,price){if(s.assets.includes(name)){toast("คุณมีสิ่งนี้แล้ว");return}if(s.money<price){toast("เงินไม่เพียงพอ");return}s.money-=price;s.assets.push(name);s.log="🏠 ซื้อ "+name+" สำเร็จ";persist()}
+function exportSave(){const b=new Blob([JSON.stringify(s,null,2)],{type:"application/json"});const u=URL.createObjectURL(b);const a=document.createElement("a");a.href=u;a.download="lifepath-th-save.json";a.click();URL.revokeObjectURL(u)}
+function resetGame(){if(!confirm("เริ่มชีวิตใหม่และล้างเซฟเดิม?"))return;s=initial();persist();go("home");toast("เริ่มชีวิตใหม่แล้ว")}
+render();
 </script>
 </body>
 </html>
