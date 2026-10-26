@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LifePath TH</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:16px;background:#0b1020;color:#f4f6ff;font:16px system-ui}
+main{max-width:760px;margin:auto}
+h1{font-size:38px;margin:8px 0}
+p{color:#aab6d1;line-height:1.6}
+.card{background:#151d31;border:1px solid #2a3651;border-radius:16px;padding:16px;margin:14px 0}
+.stats,.actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.stat{background:#0d1425;padding:12px;border-radius:12px}
+.stat small{display:block;color:#aab6d1}
+.stat b{font-size:20px}
+button{background:#263452;color:white;border:1px solid #405174;border-radius:12px;padding:12px;font:inherit;font-weight:bold}
+.primary{background:#8b7cff;color:#090b18}
+.feed{line-height:1.8;min-height:55px}
+@media(min-width:600px){.stats,.actions{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<main>
+<p style="color:#b9b0ff;font-weight:bold">LIFE SIMULATOR • THAILAND</p>
+<h1>LifePath TH</h1>
+<p>สร้างชีวิตของคุณ เลือกเส้นทาง และค้นพบอนาคต</p>
+
+<section class="card">
+<div id="age"></div>
+<h2 id="job">ชีวิตใหม่ของคุณ</h2>
+<div class="stats" id="stats"></div>
+</section>
+
+<section class="card">
+<h2>กิจกรรมชีวิต</h2>
+<div class="actions">
+<button class="primary" onclick="act('study')">📚 เรียนหนังสือ</button>
+<button onclick="act('work')">💼 ทำงาน</button>
+<button onclick="act('health')">❤️ ดูแลสุขภาพ</button>
+<button onclick="act('friends')">🫂 พบปะเพื่อน</button>
+<button onclick="act('invest')">📈 ลงทุนจำลอง</button>
+<button onclick="act('age')">🎂 โตขึ้น 1 ปี</button>
+</div>
+</section>
+
+<section class="card">
+<h2>บันทึกชีวิต</h2>
+<div id="feed" class="feed">✨ คุณเกิดมาในประเทศไทย การผจญภัยเริ่มต้นแล้ว!</div>
+<button onclick="resetLife()">เริ่มชีวิตใหม่</button>
+</section>
+<p style="font-size:12px;text-align:center">LifePath TH • เกมจำลองเพื่อความบันเทิง</p>
+</main>
+
+<script>
+let s={
+ age:0,health:80,happy:75,intel:50,
+ rep:10,cash:1000,edu:0,
+ job:"ชีวิตใหม่ของคุณ"
+};
+
+try{
+ const old=localStorage.getItem("lifepath-save");
+ if(old)s={...s,...JSON.parse(old)};
+}catch(e){}
+
+const clamp=n=>Math.max(0,Math.min(100,n));
+
+function render(){
+ document.getElementById("age").textContent=
+ (s.age<13?"วัยเด็ก":s.age<20?"วัยรุ่น":s.age<60?"วัยผู้ใหญ่":"วัยสูงอายุ")
+ +" • อายุ "+s.age+" ปี";
+
+ document.getElementById("job").textContent=s.job;
+
+ const stats=[
+ ["❤️ สุขภาพ",s.health+"/100"],
+ ["😊 ความสุข",s.happy+"/100"],
+ ["🧠 สติปัญญา",s.intel+"/100"],
+ ["⭐ ชื่อเสียง",s.rep+"/100"],
+ ["💰 เงิน","฿"+s.cash.toLocaleString("th-TH")],
+ ["🎓 การศึกษา",s.edu+"/10"]
+ ];
+
+ document.getElementById("stats").innerHTML=
+ stats.map(x=>`<div class="stat"><small>${x[0]}</small><b>${x[1]}</b></div>`).join("");
+
+ try{
+  localStorage.setItem("lifepath-save",JSON.stringify(s));
+ }catch(e){}
+}
+
+function log(t){
+ document.getElementById("feed").textContent=t;
+}
+
+function act(a){
+ if(a==="study"){
+  s.intel=clamp(s.intel+5);
+  s.edu=Math.min(10,s.edu+1);
+  s.happy=clamp(s.happy-2);
+  log("📚 คุณตั้งใจเรียน ความรู้เพิ่มขึ้น!");
+ }
+
+ else if(a==="work"){
+  if(s.age<15){
+   log("💼 คุณยังเด็กเกินไป ลองเรียนหนังสือก่อน!");
+   return;
+  }
+  let money=Math.round(500+s.intel*10);
+  s.cash+=money;
+  log("💼 คุณทำงานสำเร็จ ได้รับเงิน ฿"+money);
+ }
+
+ else if(a==="health"){
+  s.health=clamp(s.health+8);
+  s.happy=clamp(s.happy+2);
+  log("❤️ คุณดูแลตัวเอง สุขภาพดีขึ้น!");
+ }
+
+ else if(a==="friends"){
+  s.happy=clamp(s.happy+8);
+  s.rep=clamp(s.rep+3);
+  log("🫂 คุณพบเพื่อนใหม่และสร้างความทรงจำดีๆ");
+ }
+
+ else if(a==="invest"){
+  let change=Math.round((Math.random()-.4)*s.cash*.12);
+  s.cash=Math.max(0,s.cash+change);
+  log(change>=0
+   ?"📈 การลงทุนจำลองได้กำไร ฿"+change
+   :"📉 การลงทุนจำลองขาดทุน ฿"+(-change));
+ }
+
+ else if(a==="age"){
+  s.age++;
+  s.health=clamp(s.health-1);
+  s.happy=clamp(s.happy+(Math.random()<.5?3:-2));
+
+  if(s.age===6)log("🏫 คุณเริ่มเข้าโรงเรียน!");
+  else if(s.age===15)log("🎓 คุณเริ่มคิดถึงอนาคตและอาชีพ");
+  else if(s.age===18){
+   s.job=s.edu>=5?"นักศึกษามหาวิทยาลัย":"พนักงานเริ่มต้น";
+   log("🌟 คุณเข้าสู่วัยผู้ใหญ่แล้ว!");
+  }
+  else if(s.age===25){
+   s.job=s.edu>=7?"ผู้เชี่ยวชาญ":"พนักงานประจำ";
+   log("💼 ชีวิตการทำงานของคุณเริ่มมั่นคงขึ้น");
+  }
+  else if(s.age===60)log("🌅 คุณเข้าสู่วัยเกษียณ");
+  else if(s.age>=80)log("🌳 คุณมีประสบการณ์ชีวิตมากมาย");
+  else log("🎂 คุณเติบโตขึ้นอีกหนึ่งปี!");
+ }
+
+ render();
+}
+
+function resetLife(){
+ if(!confirm("เริ่มชีวิตใหม่หรือไม่?"))return;
+
+ s={
+  age:0,health:80,happy:75,intel:50,
+  rep:10,cash:1000,edu:0,
+  job:"ชีวิตใหม่ของคุณ"
+ };
+
+ log("✨ ชีวิตใหม่เริ่มต้นแล้ว!");
+ render();
+}
+
+render();
+</script>
+</body>
+</html>
