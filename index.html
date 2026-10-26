@@ -1,128 +1,332 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="theme-color" content="#505eaa">
 <title>LifePath TH</title>
 <style>
+:root{--blue:#505eaa;--blue2:#35447f;--bg:#f8f7f3;--line:#e8e6e1;--text:#292b36;--muted:#777985;--green:#42a176;--pink:#d56da0}
 *{box-sizing:border-box}
-body{margin:0;background:#071126;color:#f2f6ff;font:14px system-ui,sans-serif;padding-bottom:80px}
+body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif;color:var(--text);padding-bottom:126px}
 button,input,select{font:inherit}
-button{color:white;background:#142447;border:1px solid #293d65;border-radius:12px;padding:11px;cursor:pointer}
-button:active{transform:scale(.98)}
-.wrap{max-width:760px;margin:auto;padding:12px}
-header{display:flex;justify-content:space-between;align-items:center;padding:10px 2px}
-.logo{font-size:24px;font-weight:900}.logo b{color:#a8aaff}
-.sub,small{color:#9eafd0;font-size:11px}
-.hero{padding:20px;border-radius:20px;background:linear-gradient(125deg,#172b5c,#65488e,#ee8db3);min-height:140px}
-.hero h1{margin:0;font-size:24px}
-.profile,.card,.stat,.action{border:1px solid #293d65;border-radius:15px;background:linear-gradient(145deg,#102143,#0a1730)}
-.profile{display:flex;align-items:center;gap:12px;margin-top:12px;padding:13px}
-.face{font-size:34px;background:#344f86;padding:12px;border-radius:14px}
-.name{font-size:17px;font-weight:800}
-.cash{margin-left:auto;color:#27d6a0;font-weight:bold;text-align:right}
-.stats,.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
-.stat{padding:11px}.stathead{display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px}
-.bar{height:7px;background:#263657;border-radius:8px;overflow:hidden}
-.fill{height:100%;background:linear-gradient(90deg,#516bff,#24d9b0)}
-.section{display:flex;justify-content:space-between;align-items:center;margin:20px 2px 10px}
-.section h2{font-size:16px;margin:0}
-.action{text-align:left;min-height:90px;padding:13px}
-.action strong,.action small{display:block;margin-top:6px}
-.emoji{font-size:24px}
-.card{padding:13px;margin:10px 0}
-.primary{width:100%;background:linear-gradient(100deg,#526cff,#a04fff);border:0;font-weight:bold}
-.danger{background:#b82d55}
-.page{display:none}.page.active{display:block}
-.row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #26385a}
-.row:last-child{border:0}.grow{flex:1;min-width:0}
-.row small{display:block;margin-top:4px}
-.tabs{position:fixed;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,1fr);background:#08132af5;border-top:1px solid #26385b;padding:7px 3px}
-.tab{border:0;background:transparent;color:#9caecc;font-size:10px;padding:5px 0}
-.tab span{display:block;font-size:19px;margin-bottom:3px}
-.tab.active{color:#c7b4ff;background:#1c2d53}
-label{display:block;color:#9eafd0;margin:10px 0}
-input,select{width:100%;padding:11px;background:#07142d;color:white;border:1px solid #31466f;border-radius:10px;margin-top:5px}
-@media(min-width:600px){.stats{grid-template-columns:repeat(4,1fr)}.grid{grid-template-columns:repeat(3,1fr)}}
+button{cursor:pointer}
+.top{height:62px;background:var(--blue);color:white;display:flex;align-items:center;padding:0 15px;gap:12px;position:sticky;top:0;z-index:5;box-shadow:0 2px 5px #0001}
+.menu-btn{border:0;background:none;color:white;font-size:29px;padding:0 3px}
+.logo{font-size:20px;font-weight:800;white-space:nowrap;flex:1}
+.top-btn{border:0;border-radius:25px;padding:8px 12px;background:#f9d66b;color:#513f1b;font-weight:800}
+.profile{background:white;padding:13px 17px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.avatar{width:75px;height:75px;border-radius:50%;background:#f0f0f8;display:grid;place-items:center;font-size:43px;flex-shrink:0}
+.profile-info{min-width:0;flex:1}
+.name{font-size:21px;font-weight:850}
+.sub{color:#676a7a;font-size:14px}
+.money{font-size:18px;font-weight:850;color:#319b91;text-align:right;white-space:nowrap}
+.ticker{background:#ffdf75;color:#624d13;font-weight:750;font-size:13px;padding:6px 12px;white-space:nowrap;overflow:hidden}
+.page{display:none}
+.page.active{display:block}
+.page-title{font-size:27px;font-weight:850;padding:22px 20px;background:white;border-bottom:1px solid var(--line)}
+.section{font-size:16px;font-weight:800;color:#4f5b93;background:#f5f3ee;padding:14px 20px;border-bottom:1px solid var(--line)}
+.item{background:white;display:flex;align-items:center;gap:14px;padding:16px 17px;border-bottom:1px solid var(--line);min-height:88px}
+.item:active{background:#f2f3fa}
+.item-icon{width:60px;height:60px;border-radius:22px;background:#f1f1fa;display:grid;place-items:center;font-size:31px;flex-shrink:0}
+.item-content{flex:1;min-width:0}
+.item-title{font-size:19px;font-weight:800}
+.item-desc{font-size:15px;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
+.arrow{font-size:25px;color:#9395a1;padding-left:5px}
+.progress{height:9px;background:#e9e6df;border-radius:20px;overflow:hidden;margin-top:8px}
+.progress span{display:block;height:100%;background:var(--green);border-radius:20px}
+.event{background:white;margin:14px 17px;padding:17px 0;border-bottom:1px solid var(--line)}
+.event-tag{font-size:15px;color:var(--pink);font-weight:800}
+.event-title{font-size:21px;font-weight:850;margin:5px 0}
+.event-desc{color:#696b75;font-size:16px;line-height:1.65}
+.primary{border:0;border-radius:17px;background:var(--blue);color:white;font-weight:850;padding:16px 20px;box-shadow:0 2px 5px #0002}
+.secondary{border:1px solid var(--line);background:white;color:var(--text);border-radius:13px;padding:12px 15px;font-weight:700}
+.dock{position:fixed;bottom:0;left:0;right:0;z-index:6;background:#fff;border-top:1px solid var(--line)}
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;padding:9px 15px 6px}
+.mini{text-align:center;font-size:17px}
+.mini .progress{height:8px;margin-top:4px}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);padding:7px 4px 9px}
+.tab{background:none;border:0;color:#999aa3;font-size:12px;padding:3px 0;display:flex;flex-direction:column;align-items:center;gap:3px}
+.tab .ico{font-size:25px;line-height:1.3}
+.tab.active{color:var(--blue2);font-weight:850}
+.tab.active:after{content:"";width:30px;height:3px;border-radius:4px;background:var(--blue);margin-top:1px}
+.bottom-action{position:fixed;bottom:138px;left:16px;right:16px;display:flex;gap:10px;z-index:4;pointer-events:none}
+.bottom-action button{pointer-events:auto}
+.age-btn{flex:1;font-size:19px}
+.back-btn{width:67px;background:white;border:1px solid var(--line);border-radius:20px;font-size:25px}
+.modal-backdrop{position:fixed;inset:0;background:#0006;z-index:20;display:none;align-items:flex-end;justify-content:center}
+.modal-backdrop.show{display:flex}
+.modal{width:100%;max-width:560px;background:white;border-radius:24px 24px 0 0;padding:22px 20px 28px;max-height:85vh;overflow:auto}
+.modal h2{margin:0 0 8px;font-size:23px}
+.modal p{color:#696b75;line-height:1.6}
+.choices{display:grid;gap:10px;margin-top:18px}
+.choice{border:1px solid var(--line);background:white;border-radius:14px;text-align:left;padding:14px;font-weight:750}
+.choice:active{background:#f0f2ff}
+.drawer{position:fixed;inset:0;z-index:15;display:none;background:#0005}
+.drawer.show{display:block}
+.drawer-panel{width:min(82%,390px);height:100%;background:white;overflow:auto}
+.drawer-head{background:white;padding:20px;border-bottom:1px solid var(--line)}
+.drawer-row{padding:14px 20px;display:flex;gap:13px;align-items:center;border-bottom:1px solid var(--line);font-size:17px;font-weight:750}
+.drawer-row span:first-child{width:36px;height:36px;display:grid;place-items:center;background:#f0f0f8;border-radius:50%;font-size:21px}
+.grid-two{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px}
+.stat-card{background:white;border:1px solid var(--line);border-radius:15px;padding:14px}
+.stat-number{font-size:22px;font-weight:850}
+.pill{display:inline-block;background:#e9eaf7;color:#48558d;border-radius:20px;padding:3px 10px;font-size:12px;font-weight:800}
+input,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:12px;background:white;margin:6px 0 12px}
+.notice{padding:12px 16px;background:#edf5ee;color:#26714f;border-radius:12px;margin:12px 16px}
+.empty{padding:25px;text-align:center;color:var(--muted)}
+@media(min-width:700px){body{max-width:560px;margin:0 auto;border-left:1px solid var(--line);border-right:1px solid var(--line)}.top{position:sticky}.dock{left:50%;right:auto;width:560px;transform:translateX(-50%)}.bottom-action{left:calc(50% - 264px);right:calc(50% - 264px)}}
 </style>
 </head>
 <body>
-<main class="wrap">
-<header><div><div class="logo">LifePath <b>TH</b></div><div class="sub">ชีวิตจำลอง · ทุกการเลือกมีผล</div></div><button onclick="page('settings')">⚙️</button></header>
-<div class="hero"><h1>เส้นทางชีวิตของคุณ</h1><p>เติบโต สร้างความสัมพันธ์ และทำความฝันให้สำเร็จ</p><div id="yearLabel"></div></div>
-<div class="profile"><div class="face" id="face">🧑🏻</div><div><div class="name" id="pname">P9D</div><div class="sub" id="bio"></div><small id="jobpill"></small></div><div class="cash" id="cash"></div></div>
-<div class="stats" id="stats"></div>
+<header class="top">
+<button class="menu-btn" onclick="openDrawer()">☰</button>
+<div class="logo">🌍 LifePath TH</div>
+<button class="top-btn" onclick="openPage('กิจกรรม')">🎯 ภารกิจ</button>
+</header>
 
-<section class="page active" id="home">
-<div class="section"><h2>⚡ กิจกรรมชีวิต</h2><small id="energyLabel"></small></div>
-<div class="grid">
-<button class="action" onclick="act('read')"><span class="emoji">📚</span><strong>อ่านหนังสือ</strong><small>สติปัญญา +5</small></button>
-<button class="action" onclick="act('exercise')"><span class="emoji">🏃</span><strong>ออกกำลังกาย</strong><small>สุขภาพ +6</small></button>
-<button class="action" onclick="act('game')"><span class="emoji">🎮</span><strong>เล่นเกม</strong><small>ความสุข +7</small></button>
-<button class="action" onclick="act('work')"><span class="emoji">💼</span><strong>ทำงานพิเศษ</strong><small>ได้เงิน</small></button>
-<button class="action" onclick="act('social')"><span class="emoji">🫂</span><strong>พบปะผู้คน</strong><small>เพิ่มความสัมพันธ์</small></button>
-<button class="action" onclick="act('hobby')"><span class="emoji">🎸</span><strong>ฝึกทักษะ</strong><small>สุข +4 · ฉลาด +2</small></button>
+<div class="profile">
+<div class="avatar" id="avatar">👨🏻</div>
+<div class="profile-info">
+<div class="name" id="profileName">ผู้เล่น</div>
+<div class="sub"><span id="ageText">18</span> ปี　|　<span id="genderText">ชาย</span></div>
+<div class="sub" id="jobText">นักเรียน</div>
 </div>
-<div class="section"><h2>📖 บันทึกชีวิต</h2></div><div class="card" id="logs"></div>
-<button class="primary" onclick="nextYear()">⏭️ ก้าวสู่ปีถัดไป</button>
+<div class="money" id="moneyText">฿10,000</div>
+</div>
+<div class="ticker" id="ticker">✨ เริ่มต้นชีวิตใหม่ — ทุกการตัดสินใจมีผลต่ออนาคตของคุณ</div>
+
+<main>
+<section class="page active" id="page-ชีวิต">
+<div class="page-title">ชีวิตของฉัน</div>
+<div class="grid-two" id="statsGrid"></div>
+<div class="section">เหตุการณ์ในชีวิต</div>
+<div id="lifeEvents"></div>
+<div class="notice">💡 เคล็ดลับ: ทำกิจกรรมเพื่อเพิ่มค่าสถานะ และหาเงินเพื่อสร้างอนาคต</div>
 </section>
 
-<section class="page" id="relationships">
-<div class="section"><h2>💗 ความสัมพันธ์</h2><button onclick="meet()">＋ พบคนใหม่</button></div><div id="people"></div>
+<section class="page" id="page-ที่ทำงาน">
+<div class="page-title">ที่ทำงาน</div>
+<div class="section">งานปัจจุบัน</div>
+<div id="currentJob"></div>
+<div class="section">อาชีพที่เลือกได้</div>
+<div id="jobsList"></div>
+<div class="section">การศึกษา</div>
+<div id="educationList"></div>
 </section>
 
-<section class="page" id="career">
-<div class="section"><h2>🎓 เรียน / อาชีพ</h2></div>
-<div class="card"><h2 id="careerTitle"></h2><p id="salaryText"></p><button class="primary" onclick="promote()">ขอเลื่อนตำแหน่ง</button></div>
-<div id="jobs"></div><div class="card"><h3 id="eduTitle"></h3><p id="eduProgress"></p><button class="primary" onclick="studyMore()">เรียนต่อ ฿5,000</button></div>
+<section class="page" id="page-ทรัพย์สิน">
+<div class="page-title">ทรัพย์สินส่วนตัว</div>
+<div id="assetList"></div>
+<div class="section">ร้านค้า</div>
+<div id="shopList"></div>
 </section>
 
-<section class="page" id="finance">
-<div class="section"><h2>💰 การเงินและธนาคาร</h2></div>
-<div class="card"><p id="fCash"></p><p id="fSave"></p><p id="fWorth"></p><label>จำนวนเงิน<input id="amount" type="number" value="1000"></label><div class="grid"><button onclick="bank(true)">ฝากเงิน</button><button onclick="bank(false)">ถอนเงิน</button></div></div>
+<section class="page" id="page-ความสัมพันธ์">
+<div class="page-title">ความสัมพันธ์</div>
+<div id="relationshipTop"></div>
+<div class="section">ครอบครัวและเพื่อน</div>
+<div id="peopleList"></div>
+<div class="section">สร้างความสัมพันธ์</div>
+<div id="relationshipActions"></div>
 </section>
 
-<section class="page" id="assets"><div class="section"><h2>🏡 ทรัพย์สิน</h2></div><div id="owned"></div><div id="shop"></div></section>
-
-<section class="page" id="settings">
-<div class="section"><h2>⚙️ ตั้งค่า</h2></div>
-<div class="card"><label>ชื่อตัวละคร<input id="nameInput" maxlength="24"></label><label>อวาตาร์<select id="faceInput"><option>🧑🏻</option><option>👩🏻</option><option>🧑🏽</option><option>👨🏻‍🎤</option></select></label><button class="primary" onclick="saveProfile()">บันทึกโปรไฟล์</button></div>
-<div class="card"><button onclick="exportSave()">ส่งออกเซฟ</button> <button onclick="document.getElementById('file').click()">นำเข้าเซฟ</button><input id="file" type="file" accept=".json" hidden onchange="importSave(event)"></div>
-<div class="card"><button class="danger" onclick="resetGame()">เริ่มชีวิตใหม่</button></div>
+<section class="page" id="page-กิจกรรม">
+<div class="page-title">กิจกรรม</div>
+<div class="section">พัฒนาตัวเอง</div>
+<div id="selfActivities"></div>
+<div class="section">กิจกรรมทั่วไป</div>
+<div id="funActivities"></div>
+<div class="section">ภารกิจประจำชีวิต</div>
+<div id="missions"></div>
 </section>
 </main>
+
+<div class="bottom-action">
+<button class="back-btn" onclick="showPastEvents()">⏪</button>
+<button class="primary age-btn" onclick="ageUp()">โตขึ้นอีกปี　<span id="ageButtonText">18 → 19</span></button>
+</div>
+
+<footer class="dock">
+<div class="stats-strip">
+<div class="mini">😊<div class="progress"><span id="bar-happiness"></span></div></div>
+<div class="mini">💪<div class="progress"><span id="bar-health"></span></div></div>
+<div class="mini">🧠<div class="progress"><span id="bar-smarts"></span></div></div>
+<div class="mini">✨<div class="progress"><span id="bar-fame"></span></div></div>
+</div>
 <nav class="tabs">
-<button class="tab active" data-id="home" onclick="page('home')"><span>🏠</span>หน้าหลัก</button>
-<button class="tab" data-id="relationships" onclick="page('relationships')"><span>💗</span>สัมพันธ์</button>
-<button class="tab" data-id="career" onclick="page('career')"><span>🎓</span>เรียน/งาน</button>
-<button class="tab" data-id="finance" onclick="page('finance')"><span>💰</span>การเงิน</button>
-<button class="tab" data-id="assets" onclick="page('assets')"><span>🏡</span>ทรัพย์สิน</button>
+<button class="tab active" data-page="ชีวิต" onclick="openPage('ชีวิต')"><span class="ico">📖</span>ชีวิต</button>
+<button class="tab" data-page="ที่ทำงาน" onclick="openPage('ที่ทำงาน')"><span class="ico">🏢</span>ที่ทำงาน</button>
+<button class="tab" data-page="ทรัพย์สิน" onclick="openPage('ทรัพย์สิน')"><span class="ico">🎒</span>ทรัพย์สิน</button>
+<button class="tab" data-page="ความสัมพันธ์" onclick="openPage('ความสัมพันธ์')"><span class="ico">👥</span>ความสัมพันธ์</button>
+<button class="tab" data-page="กิจกรรม" onclick="openPage('กิจกรรม')"><span class="ico">🎯</span>กิจกรรม</button>
 </nav>
+</footer>
+
+<div class="drawer" id="drawer" onclick="closeDrawer(event)">
+<div class="drawer-panel">
+<div class="drawer-head">
+<div style="font-size:25px;font-weight:850">🌍 LifePath TH</div>
+<div id="drawerPlayer" class="sub">ชีวิตของคุณ</div>
+<button class="secondary" style="margin-top:12px" onclick="closeDrawer()">ปิดเมนู ✕</button>
+</div>
+<div class="section">ชีวิตนี้</div>
+<div class="drawer-row" onclick="newLife()"><span>🎲</span>เริ่มชีวิตใหม่</div>
+<div class="drawer-row" onclick="saveGame();toast('บันทึกเกมแล้ว')"><span>☁️</span>บันทึกเกม</div>
+<div class="drawer-row" onclick="loadGame()"><span>📂</span>โหลดเกมที่บันทึก</div>
+<div class="drawer-row" onclick="showHelp()"><span>❓</span>สอนการเล่น</div>
+<div class="section">สะสม</div>
+<div class="drawer-row" onclick="showAchievements()"><span>🏆</span>ความสำเร็จ</div>
+<div class="drawer-row" onclick="showLeaderboard()"><span>🥇</span>สถิติชีวิตนี้</div>
+<div class="section">ตั้งค่า</div>
+<div class="drawer-row" onclick="changeName()"><span>🪪</span>เปลี่ยนชื่อตัวละคร</div>
+<div class="drawer-row" onclick="resetGame()"><span>🔄</span>รีเซ็ตเกม</div>
+</div>
+</div>
+
+<div class="modal-backdrop" id="modalBackdrop" onclick="if(event.target===this)closeModal()">
+<div class="modal">
+<h2 id="modalTitle">เหตุการณ์</h2>
+<p id="modalDesc"></p>
+<div class="choices" id="modalChoices"></div>
+<button class="secondary" style="width:100%;margin-top:12px" onclick="closeModal()">ปิด</button>
+</div>
+</div>
+
 <script>
-const KEY='lifepath_th_v2';
-const fresh=()=>({name:'P9D',face:'🧑🏻',age:18,year:2026,health:88,happy:82,intel:65,fame:25,energy:100,cash:12500,savings:0,job:'ว่างงาน',salary:0,edu:'มัธยมศึกษา',eduYears:0,partner:'',people:[{name:'พ่อ',kind:'ครอบครัว',aff:80},{name:'แม่',kind:'ครอบครัว',aff:85},{name:'เพื่อน',kind:'เพื่อน',aff:55}],assets:[],logs:['เริ่มต้นชีวิตใหม่ 🌆']});
-let s;try{s={...fresh(),...JSON.parse(localStorage.getItem(KEY)||'{}')}}catch(e){s=fresh()}
-const fmt=n=>'฿'+Math.round(n).toLocaleString('th-TH'),cap=n=>Math.max(0,Math.min(100,Math.round(n)));
-function save(){localStorage.setItem(KEY,JSON.stringify(s))}
-function note(t){s.logs.unshift('อายุ '+s.age+' ปี · '+t);s.logs=s.logs.slice(0,8)}
-function page(id){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.id===id));render()}
-function act(t){if(s.energy<15)return alert('พลังงานไม่พอ ก้าวสู่ปีถัดไปเพื่อพัก');s.energy-=15;let log='';if(t==='read'){s.intel=cap(s.intel+5);log='อ่านหนังสือ เพิ่มสติปัญญา'}if(t==='exercise'){s.health=cap(s.health+6);s.happy=cap(s.happy+2);log='ออกกำลังกาย สุขภาพดีขึ้น'}if(t==='game'){s.happy=cap(s.happy+7);log='เล่นเกมคลายเครียด'}if(t==='work'){let n=300+Math.floor(Math.random()*501);s.cash+=n;log='ทำงานพิเศษ ได้เงิน '+fmt(n)}if(t==='social'){s.happy=cap(s.happy+4);s.fame=cap(s.fame+2);s.people[0].aff=cap(s.people[0].aff+2);log='พบปะผู้คน'}if(t==='hobby'){s.intel=cap(s.intel+2);s.happy=cap(s.happy+4);log='ฝึกทักษะใหม่'}note(log);save();render()}
-function nextYear(){if(!confirm('ขึ้นปีใหม่? อายุ +1 และพลังงานเต็ม'))return;s.age++;s.year++;s.energy=100;s.cash+=s.salary;s.savings=Math.floor(s.savings*1.02);s.health=cap(s.health-1);note('ขึ้นปี '+s.year+' รับเงินเดือน '+fmt(s.salary));save();render()}
-const jobs=[['พนักงานร้านค้า',12000,0,18,0],['พนักงานออฟฟิศ',22000,35,20,0],['นักออกแบบ',32000,50,20,1],['โปรแกรมเมอร์',48000,65,20,2],['แพทย์',70000,80,24,2]];
-function level(){return s.edu==='ปริญญาโท'?2:s.edu==='ปริญญาตรี'?1:0}
-function applyJob(i){let j=jobs[i];if(s.age<j[3]||s.intel<j[2]||level()<j[4])return alert('คุณสมบัติไม่ครบ');s.job=j[0];s.salary=j[1];note('ได้งาน '+j[0]);save();render();alert('สมัครงานสำเร็จ!')}
-function promote(){if(!s.salary)return alert('สมัครงานก่อน');s.salary=Math.round(s.salary*1.15);note('เลื่อนตำแหน่ง รายได้ '+fmt(s.salary));save();render()}
-function studyMore(){if(s.cash<5000)return alert('เงินสดไม่พอ');if(s.eduYears>=6)return alert('เรียนจบระดับสูงสุดแล้ว');s.cash-=5000;s.eduYears++;s.intel=cap(s.intel+4);if(s.eduYears>=4)s.edu='ปริญญาตรี';if(s.eduYears>=6)s.edu='ปริญญาโท';note('เรียนต่อปีที่ '+s.eduYears);save();render()}
-function meet(){let n=prompt('ชื่อคนที่อยากรู้จัก');if(!n||!n.trim())return;s.people.push({name:n.trim().slice(0,24),kind:'เพื่อน',aff:35});note('รู้จักกับ '+n);save();render()}
-function interact(i,a){let p=s.people[i];if(a===0)p.aff=cap(p.aff+8);if(a===1){if(s.cash<500)return alert('เงินไม่พอ');s.cash-=500;p.aff=cap(p.aff+15)}if(a===2){if(p.aff<65)return alert('เพิ่มความสัมพันธ์ให้ถึง 65 ก่อน');if(s.partner)return alert('มีคู่รักแล้ว');s.partner=p.name;p.kind='คนรัก'}note('ทำกิจกรรมกับ '+p.name);save();render()}
-function bank(dep){let n=Math.floor(+document.getElementById('amount').value);if(n<=0)return alert('ใส่จำนวนเงินให้ถูกต้อง');if(dep){if(n>s.cash)return alert('เงินสดไม่พอ');s.cash-=n;s.savings+=n}else{if(n>s.savings)return alert('เงินออมไม่พอ');s.savings-=n;s.cash+=n}note(dep?'ฝากเงิน '+fmt(n):'ถอนเงิน '+fmt(n));save();render()}
-const products=[['📱','โทรศัพท์',12000],['🏍️','มอเตอร์ไซค์',65000],['🚗','รถยนต์',450000],['🏢','คอนโด',1800000]];
-function buy(i){let a=products[i];if(s.cash<a[2])return alert('เงินสดไม่พอ');if(s.assets.some(x=>x.name===a[1]))return alert('มีสิ่งนี้อยู่แล้ว');if(!confirm('ซื้อ'+a[1]+' ราคา '+fmt(a[2])+'?'))return;s.cash-=a[2];s.assets.push({emoji:a[0],name:a[1],price:a[2]});note('ซื้อ'+a[1]);save();render()}
-function sell(i){let a=s.assets[i];if(!confirm('ขาย'+a.name+' ได้ '+fmt(a.price*.7)+'?'))return;s.cash+=Math.round(a.price*.7);s.assets.splice(i,1);note('ขาย'+a.name);save();render()}
-function saveProfile(){let n=document.getElementById('nameInput').value.trim();if(n)s.name=n;s.face=document.getElementById('faceInput').value;save();render();alert('บันทึกแล้ว')}
-function exportSave(){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(s)],{type:'application/json'}));a.download='lifepath-save.json';a.click();URL.revokeObjectURL(a.href)}
-function importSave(e){let r=new FileReader();r.onload=()=>{try{s={...fresh(),...JSON.parse(r.result)};save();render();alert('นำเข้าเซฟสำเร็จ')}catch{alert('ไฟล์ไม่ถูกต้อง')}};if(e.target.files[0])r.readAsText(e.target.files[0])}
-function resetGame(){if(!confirm('เริ่มชีวิตใหม่และลบเซฟ?'))return;s=fresh();save();page('home')}
-function render(){document.getElementById('face').textContent=s.face;document.getElementById('pname').textContent=s.name;document.getElementById('bio').textContent='อายุ '+s.age+' ปี · '+(s.partner?'คบกับ '+s.partner:'โสด');document.getElementById('jobpill').textContent=s.job;document.getElementById('cash').textContent=fmt(s.cash);document.getElementById('yearLabel').textContent='กรุงเทพมหานคร · ปี '+s.year;document.getElementById('energyLabel').textContent='พลังงาน '+s.energy+'/100';document.getElementById('stats').innerHTML=[['💗','สุขภาพ',s.health],['🙂','ความสุข',s.happy],['🧠','สติปัญญา',s.intel],['⭐','ชื่อเสียง',s.fame]].map(x=>'<div class="stat"><div class="stathead"><span>'+x[0]+' '+x[1]+'</span><b>'+x[2]+'/100</b></div><div class="bar"><div class="fill" style="width:'+x[2]+'%"></div></div></div>').join('');document.getElementById('logs').innerHTML=s.logs.map(x=>'<div>• '+x.replace(/[<>]/g,'')+'</div>').join('');document.getElementById('people').innerHTML=s.people.map((p,i)=>'<div class="card"><div class="row"><div class="grow"><strong>'+p.name+'</strong><small>'+p.kind+' · '+p.aff+'% ความสัมพันธ์</small><div class="bar"><div class="fill" style="width:'+p.aff+'%"></div></div></div></div><div class="grid"><button onclick="interact('+i+',0)">💬 คุย</button><button onclick="interact('+i+',1)">🎁 ของขวัญ</button><button onclick="interact('+i+',2)">💗 ขอคบ</button></div></div>').join('');document.getElementById('careerTitle').textContent=s.job;document.getElementById('salaryText').textContent='รายได้ '+fmt(s.salary)+'/ปี';document.getElementById('eduTitle').textContent=s.edu;document.getElementById('eduProgress').textContent='เรียนแล้ว '+s.eduYears+' ปี';document.getElementById('jobs').innerHTML=jobs.map((j,i)=>'<div class="card row"><div class="grow"><strong>'+j[0]+'</strong><small>'+fmt(j[1])+'/ปี · สติปัญญา '+j[2]+' · อายุ '+j[3]+'+</small></div><button onclick="applyJob('+i+')">สมัคร</button></div>').join('');document.getElementById('fCash').textContent='เงินสด '+fmt(s.cash);document.getElementById('fSave').textContent='เงินออม '+fmt(s.savings);document.getElementById('fWorth').textContent='มูลค่ารวม '+fmt(s.cash+s.savings+s.assets.reduce((n,a)=>n+a.price,0));document.getElementById('owned').innerHTML=s.assets.length?s.assets.map((a,i)=>'<div class="card row"><span>'+a.emoji+'</span><div class="grow"><strong>'+a.name+'</strong><small>'+fmt(a.price)+'</small></div><button onclick="sell('+i+')">ขาย</button></div>').join(''):'<div class="card">ยังไม่มีทรัพย์สิน</div>';document.getElementById('shop').innerHTML=products.map((a,i)=>'<div class="card row"><span>'+a[0]+'</span><div class="grow"><strong>'+a[1]+'</strong><small>'+fmt(a[2])+'</small></div><button onclick="buy('+i+')">ซื้อ</button></div>').join('');document.getElementById('nameInput').value=s.name;document.getElementById('faceInput').value=s.face;save()}
-render();
-</script></body></html>
+const initialState=()=>({
+name:"ผู้เล่น",gender:"ชาย",age:18,money:10000,health:85,happiness:75,smarts:60,fitness:55,fame:0,
+job:"นักเรียน",salary:0,education:"มัธยมศึกษา",experience:0,
+partner:null,people:[
+{id:1,name:"แม่",relation:"แม่",affection:80},
+{id:2,name:"พ่อ",relation:"พ่อ",affection:75},
+{id:3,name:"เพื่อนสนิท",relation:"เพื่อน",affection:65}
+],
+assets:[],investments:0,debt:0,events:[],achievements:[],yearActions:0,dead:false
+});
+let S;
+try{S=JSON.parse(localStorage.getItem("lifepathTH"))||initialState()}catch(e){S=initialState()}
+let lastEvent=null;
+
+const jobs=[
+{name:"พนักงานร้านสะดวกซื้อ",salary:15000,need:0,icon:"🛒"},
+{name:"พนักงานออฟฟิศ",salary:22000,need:30,icon:"💼"},
+{name:"โปรแกรมเมอร์",salary:45000,need:65,icon:"💻"},
+{name:"แพทย์",salary:62000,need:80,icon:"🩺"},
+{name:"นักธุรกิจ",salary:90000,need:75,icon:"🏢"},
+{name:"นักแสดง",salary:55000,need:60,icon:"🎬"},
+{name:"นักกีฬาอาชีพ",salary:50000,need:70,icon:"⚽"},
+{name:"ครู",salary:28000,need:50,icon:"📚"}
+];
+const goods=[
+{name:"โทรศัพท์",price:12000,icon:"📱",desc:"ช่วยให้เข้าถึงเทคโนโลยี"},
+{name:"จักรยาน",price:6000,icon:"🚲",desc:"พาหนะสำหรับเดินทาง"},
+{name:"มอเตอร์ไซค์",price:65000,icon:"🏍️",desc:"เดินทางได้สะดวก"},
+{name:"รถยนต์",price:450000,icon:"🚗",desc:"รถยนต์ส่วนตัว"},
+{name:"บ้านหลังเล็ก",price:1200000,icon:"🏠",desc:"บ้านหลังแรกของคุณ"},
+{name:"บ้านหลังใหญ่",price:4500000,icon:"🏡",desc:"บ้านสำหรับครอบครัว"},
+{name:"คอร์สลงทุน",price:5000,icon:"📈",desc:"เรียนรู้ทักษะด้านการเงิน"}
+];
+function fmt(n){return "฿"+Math.floor(n).toLocaleString("th-TH")}
+function clamp(n){return Math.max(0,Math.min(100,Math.round(n)))}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function saveGame(){localStorage.setItem("lifepathTH",JSON.stringify(S));render()}
+function toast(msg){document.getElementById("ticker").textContent="📢 "+msg}
+function item(icon,title,desc,action,extra=""){
+return `<div class="item" onclick="${action}"><div class="item-icon">${icon}</div><div class="item-content"><div class="item-title">${title}</div><div class="item-desc">${desc}</div>${extra}</div><div class="arrow">›</div></div>`
+}
+function progress(value,color=""){return `<div class="progress"><span style="width:${clamp(value)}%;${color?`background:${color}`:""}"></span></div>`}
+function openPage(page){
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+document.getElementById("page-"+page).classList.add("active");
+document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t.dataset.page===page));
+closeDrawer();window.scrollTo({top:0,behavior:"smooth"});render()
+}
+function render(){
+document.getElementById("profileName").textContent=S.name;
+document.getElementById("ageText").textContent=S.age;
+document.getElementById("genderText").textContent=S.gender;
+document.getElementById("jobText").textContent=S.job;
+document.getElementById("moneyText").textContent=fmt(S.money);
+document.getElementById("ageButtonText").textContent=S.age+" → "+(S.age+1);
+document.getElementById("drawerPlayer").textContent=S.name+" อายุ "+S.age+" ปี";
+document.getElementById("avatar").textContent=S.gender==="หญิง"?"👩🏻":"👨🏻";
+["happiness","health","smarts","fame"].forEach(k=>document.getElementById("bar-"+k).style.width=clamp(S[k])+"%");
+document.getElementById("statsGrid").innerHTML=[
+["😊","ความสุข","happiness"],["❤️","สุขภาพ","health"],["🧠","สติปัญญา","smarts"],["💪","ความฟิต","fitness"],["✨","ชื่อเสียง","fame"]
+].map(([i,n,k])=>`<div class="stat-card"><div>${i} ${n}</div><div class="stat-number">${clamp(S[k])}/100</div>${progress(S[k])}</div>`).join("")+
+`<div class="stat-card"><div>💰 เงินสด</div><div class="stat-number" style="font-size:18px">${fmt(S.money)}</div></div>`;
+document.getElementById("lifeEvents").innerHTML=S.events.length?S.events.slice(-8).reverse().map(e=>`<div class="event"><div class="event-tag">● ${esc(e.tag||"ชีวิต")}</div><div class="event-title">${esc(e.title)}</div><div class="event-desc">${esc(e.desc)}</div></div>`).join(""):`<div class="empty">ยังไม่มีเหตุการณ์ ลองทำกิจกรรมหรือโตขึ้นอีกปี</div>`;
+renderWork();renderAssets();renderPeople();renderActivities();renderMissions();
+}
+function renderWork(){
+document.getElementById("currentJob").innerHTML=item("💼",esc(S.job),S.salary?`เงินเดือน ${fmt(S.salary)}/เดือน`:"ยังไม่มีรายได้ประจำ","openJobDetails()",
+S.salary?progress(70):"");
+document.getElementById("jobsList").innerHTML=jobs.map((j,i)=>item(j.icon,j.name,`เงินเดือน ${fmt(j.salary)} · ต้องการสติปัญญา ${j.need}`,`applyJob(${i})`)).join("");
+document.getElementById("educationList").innerHTML=[
+["📚","เรียนต่อมหาวิทยาลัย","ค่าเรียน ฿30,000 · เพิ่มสติปัญญา","study(30000)"],
+["🧑‍🏫","เรียนหลักสูตรออนไลน์","ค่าเรียน ฿2,000 · เพิ่มสติปัญญา","study(2000)"],
+["📝","ฝึกทักษะอาชีพ","ฝึกฝนเพื่อเพิ่มโอกาสทำงาน","trainSkill()"]
+].map(x=>item(...x)).join("");
+}
+function renderAssets(){
+document.getElementById("assetList").innerHTML=
+item("💰","เงินสด",fmt(S.money),"showMoneyDetails()")+
+item("📉","หนี้สิน",fmt(S.debt),"showDebt()")+
+item("📈","การลงทุน",fmt(S.investments),"showInvestments()")+
+item("🧾","ค่าใช้จ่ายรายปี",fmt(12000+S.assets.length*15000),"showLivingCost()")+
+item("🎒","ของที่มี",S.assets.length?S.assets.map(a=>a.name).join(", "):"ยังไม่มีทรัพย์สิน","showInventory()");
+document.getElementById("shopList").innerHTML=goods.map((g,i)=>item(g.icon,g.name,`${fmt(g.price)} · ${g.desc}`,`buyGood(${i})`)).join("")+
+item("📊","ลงทุนในกองทุน",`ลงทุนขั้นต่ำ ฿1,000 · เงินลงทุนปัจจุบัน ${fmt(S.investments)}`,"investMoney()");
+}
+function renderPeople(){
+document.getElementById("relationshipTop").innerHTML=
+item("💞","สถานะความรัก",S.partner?`กำลังคบกับ ${S.partner}`:"โสด","romanceMenu()")+
+item("👨‍👩‍👧","ครอบครัว","ใช้เวลากับคนในครอบครัว","familyAction()")+
+item("📜","พินัยกรรม","จัดการมรดกในเกม","willAction()");
+document.getElementById("peopleList").innerHTML=S.people.map((p,i)=>item("👤",esc(p.name),`${p.relation} · ความสัมพันธ์ ${p.affection}/100`, `interactPerson(${p.id})`,progress(p.affection,p.affection<35?"#d68b43":"#42a176"))).join("");
+document.getElementById("relationshipActions").innerHTML=
+item("🤝","หาเพื่อนใหม่","พบปะผู้คนและสร้างมิตรภาพ","makeFriend()")+
+item("💗","นัดเดต","ชวนคนรักไปเดต ค่าใช้จ่าย ฿1,000","datePartner()")+
+item("🎁","ซื้อของขวัญ","ซื้อของขวัญให้คนสำคัญ ฿500","giveGift()");
+}
+function renderActivities(){
+document.getElementById("selfActivities").innerHTML=[
+["🎯","ฝึกทักษะ","เพิ่มสติปัญญา","trainSkill()"],
+["🧘","นั่งสมาธิ","เพิ่มความสุข","meditate()"],
+["⚽","ออกกำลังกาย","เพิ่มสุขภาพและความฟิต","exercise()"],
+["📚","อ่านหนังสือ","เพิ่มสติปัญญา","readBook()"]
+].map(x=>item(...x)).join("");
+document.getElementById("funActivities").innerHTML=[
+["🍜","กินอาหารอร่อย","ค่าใช้จ่าย ฿250","eatFood()"],
+["🎮","เล่นเกม","พักผ่อนและเพิ่มความสุข","playGame()"],
+["🎬","ดูหนัง","ค่าใช้จ่าย ฿300","watchMovie()"],
+["🧳","ท่องเที่ยว","ค่าใช้จ่าย ฿3,000","travel()"],
+["💼","ทำงานพิเศษ","หารายได้เพิ่มเติม","sideJob()"],
+["🛍️","ช้อปปิ้ง","ค่าใช้จ่าย ฿1,000","shopping()"]
+].map(x=>item(...x)).join("");
+}
+function renderMissions(){
+let missions=[
+["🎂","อายุครบ 20 ปี",S.age>=20],
+["💵","มีเงินเก็บ ฿100,000",S.money>=100000],
+["📚","สติปัญญา 80 ขึ้นไป",S.smarts>=80],
+["💗","มีความสัมพันธ์ 90 ขึ้นไป",S.people.some(p=>p.affection>=90)],
+["🏠","เป็นเจ้าของบ้าน",S.assets.some(a=>a.name.includes("บ้าน"))],
+["💼","มีอาชีพที่มีเงินเดือน",S.salary>0]
+];
+document.getElementById("missions").innerHTML=missions.map(m=>item(m[2]?"✅":m[0],m[1],m[2]?"สำเร็จแล้ว":"ทำให้สำเร็จเพื่อพัฒนาชีวิต",`missionInfo('${m[1]}')`)).join("");
+}
+function addEvent(title,desc,tag="ชีวิต"){S.events.push({title,desc,tag,age:S.age});if(S.events.length>100)S.events.shift()}
+function charge(amount){if(S.money<amount){toast("เงินไม่เพียงพอ!");return false}S.money-=amount;return true}
+function actionResult(title,desc){addEvent(title,desc,"กิจกรรม");saveGame();toast(title)}
+function trainSkill(){S.smarts=clamp(S.smarts+7);S.happiness=clamp(S.happiness-2);actionResult("ฝึกทักษะ","คุณใช้เวลาเรียนรู้ทักษะใหม่ สติปัญญาเพิ่มขึ้น")}
+function meditate(){S.happiness=clamp(S.happiness+9);S.health=clamp(S.health+2);actionResult("จิตใจสงบ","การทำสมาธิช่วยให้คุณรู้สึกดีขึ้น")}
+function exercise(){S.health=clamp(S.health+5);S.fitness=clamp(S.fitness+8);S.happiness=clamp(S.happiness+2);actionResult("ออกกำลังกาย","คุณดูแลสุขภาพและเพิ่มความฟิต")}
+function readBook(){S.smarts=clamp(S.smarts+5);actionResult("อ่านหนังสือ","คุณได้ความรู้ใหม่จากการอ่านหนังสือ")}
+function eatFood(){if(!charge(250))return;S.happiness=clamp(S.happiness+6);S.health=clamp(S.health+2);actionResult("มื้ออาหาร","คุณได้กินอาหารอร่อย")}
+function playGame(){S.happiness=clamp(S.happiness+7);S.fitness=clamp(S.fitness-1);actionResult("เวลาพักผ่อน","คุณเล่นเกมเพื่อพักสมอง")}
+function watchMovie(){if(!charge(300))return;S.happiness=clamp(S.happiness+8);actionResult("ดูหนัง","คุณออกไปดูหนังและพักผ่อน")}
+function travel(){if(!charge(3000))return;S.happiness=clamp(S.happiness+15);S.health=clamp(S.health+2);S.fame=clamp(S.fame+1);actionResult("ทริปท่องเที่ยว","คุณได้เปิดประสบการณ์ใหม่")}
+function shopping(
